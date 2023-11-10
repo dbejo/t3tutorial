@@ -1,7 +1,6 @@
 import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/server";
 import { TRPCError } from "@trpc/server";
-import { Input } from "postcss";
 import { z } from "zod";
 
 import {
@@ -69,7 +68,7 @@ export const postRouter = createTRPCRouter({
       const authorId = ctx.auth.userId!;
       const { success } = await ratelimit.limit(authorId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
-      const post = await ctx.db.post.create({
+      await ctx.db.post.create({
         data: {
           authorId,
           content: input.content,
