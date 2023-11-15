@@ -8,6 +8,7 @@ import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { PageLayout } from "~/components/layout";
 
 dayjs.extend(relativeTime);
 
@@ -114,15 +115,11 @@ export default function Home() {
   if (!userLoaded) return <div />;
 
   return (
-    <>
-      <main className="flex h-screen justify-center">
-        <div className="h-full w-full border-x border-slate-400 md:max-w-2xl">
-          <div className="flex border-b border-slate-400 p-4">
-            {isSignedIn && <CreatePostWizard />}
-          </div>
-          <Feed />
-        </div>
-      </main>
-    </>
+    <PageLayout>
+      <div className="flex border-b border-slate-400 p-4">
+        {isSignedIn && <CreatePostWizard />}
+      </div>
+      <Feed />
+    </PageLayout>
   );
 }
