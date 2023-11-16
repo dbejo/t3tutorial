@@ -9,6 +9,7 @@ import { PageLayout } from "~/components/layout";
 import Image from "next/image";
 import { LoadingPage } from "~/components/loading";
 import PostView from "~/components/postview";
+import { SignedOutAuthObject } from "@clerk/nextjs/server";
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading } = api.post.getPostsByUserId.useQuery({
@@ -58,7 +59,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createServerSideHelpers({
     router: appRouter,
-    ctx: { db, auth: null as any },
+    ctx: { db, auth: null! },
     transformer: superjson,
   });
 
@@ -78,7 +79,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = () => {
   return { paths: [], fallback: "blocking" };
 };
 
