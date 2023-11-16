@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
@@ -85,6 +85,11 @@ export default function Home() {
   return (
     <PageLayout>
       <div className="flex border-b border-slate-400 p-4">
+        {!isSignedIn && (
+          <div className="flex justify-center">
+            <SignInButton />
+          </div>
+        )}
         {isSignedIn && <CreatePostWizard />}
       </div>
       <Feed />
